@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Teacher's Day 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fbe3eb;
+      font-family: 'Poppins', sans-serif;
+      color: #5a3e49;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Big Floating Classroom Stickers Outside Panel */
+    .classroom-sticker {
+      position: absolute;
+      font-size: 3rem;
+      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.12));
+      z-index: 5;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .sticker-1 { top: 8%; left: 12%; animation: floatSticker1 4s ease-in-out infinite; }
+    .sticker-2 { top: 15%; right: 12%; animation: floatSticker2 5s ease-in-out infinite; }
+    .sticker-3 { bottom: 15%; left: 10%; animation: floatSticker3 4.5s ease-in-out infinite; }
+    .sticker-4 { bottom: 12%; right: 10%; animation: floatSticker1 5.5s ease-in-out infinite; }
+    .sticker-5 { top: 45%; left: 4%; animation: floatSticker2 6s ease-in-out infinite; }
+    .sticker-6 { top: 45%; right: 4%; animation: floatSticker3 5s ease-in-out infinite; }
+
+    @keyframes floatSticker1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(6deg); }
+    }
+
+    @keyframes floatSticker2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(12px) rotate(-6deg); }
+    }
+
+    @keyframes floatSticker3 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-4deg); }
+    }
+
+    /* Screen 1: Unwrapping Page */
+    #unwrap-screen {
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+      z-index: 6;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .gift-title {
+      color: #e65c84;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .gift-subtitle {
+      color: #b08290;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Screen 2: Interactive Bouquet Page */
+    #bouquet-screen {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 100vh;
+      background: linear-gradient(180deg, #fce8f0 0%, #f7d3e0 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 20px 30px 20px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0,0,0,0.08);
+      z-index: 6;
+    }
+
+    .header-banner {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 10px 22px;
+      border-radius: 25px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(230, 92, 132, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .header-banner h2 {
+      color: #e65c84;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .header-banner p {
+      color: #8f6573;
+      font-size: 0.75rem;
+      margin-top: 2px;
+    }
+
+    .bouquet-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      margin: 10px 0;
+    }
+
+    .realistic-bouquet {
+      width: 320px;
+      height: 380px;
+      filter: drop-shadow(0 12px 20px rgba(214, 82, 122, 0.25));
+      animation: gentleSway 4s ease-in-out infinite;
+    }
+
+    /* Floating Envelope Icon Button */
+    .letter-icon-btn {
+      position: absolute;
+      right: 25px;
+      bottom: 25px;
+      background: #ffffff;
+      border: 2px solid #f2a6be;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(230, 92, 132, 0.3);
+      animation: bounce 2s infinite;
+      z-index: 3;
+    }
+
+    /* Floating Particles Container */
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+
+    .music-toggle {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #f2a6be;
+      padding: 10px 22px;
+      border-radius: 20px;
+      color: #e65c84;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      z-index: 2;
+      transition: background 0.3s;
+    }
+
+    /* Screen 3: Letter Modal Pop-up */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 10;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .letter-modal {
+      background: #ffffff;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 24px;
+      padding: 28px 22px 22px 22px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: #bbb;
+      cursor: pointer;
+    }
+
+    .letter-header {
+      border-bottom: 2px dashed #f2a6be;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .letter-header h3 {
+      color: #e65c84;
+      font-size: 1.1rem;
+    }
+
+    .letter-content {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: #4a383f;
+      max-height: 55vh;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .letter-content p {
+      margin-bottom: 14px;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes gentleSway {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-8px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.7); opacity: 0.9; }
+      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    }
+
+    /* Responsive adjustments for mobile side stickers */
+    @media (max-width: 600px) {
+      .sticker-1 { top: 4%; left: 5%; font-size: 2.2rem; }
+      .sticker-2 { top: 6%; right: 5%; font-size: 2.2rem; }
+      .sticker-3 { bottom: 4%; left: 5%; font-size: 2.2rem; }
+      .sticker-4 { bottom: 4%; right: 5%; font-size: 2.2rem; }
+      .sticker-5, .sticker-6 { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Big Classroom Essential Stickers Outside Panel (Apple changed to Push Pin 📌) -->
+  <div class="classroom-sticker sticker-1">📚</div>
+  <div class="classroom-sticker sticker-2">📌</div>
+  <div class="classroom-sticker sticker-3">✏️</div>
+  <div class="classroom-sticker sticker-4">🎨</div>
+  <div class="classroom-sticker sticker-5">📐</div>
+  <div class="classroom-sticker sticker-6">🌟</div>
+
+  <!-- Royalty-free soft acoustic background music -->
+  <audio id="bg-music" loop>
+    <source src=https://youtu.be/BMWVazH_smE?si=tfWyeED2iBPgwwKc
+  </audio>
+
+  <!-- Screen 1: Unwrapping Page -->
+  <div id="unwrap-screen" onclick="unwrapGift()">
+    <svg width="120" height="140" viewBox="0 0 120 140" fill="none">
+      <path d="M60 120 L60 80" stroke="#7bb080" stroke-width="5" stroke-linecap="round"/>
+      <path d="M40 50 C30 20 50 10 60 40 C70 10 90 20 80 50 C90 70 70 85 60 85 C50 85 30 70 40 50 Z" fill="#e65c84"/>
+      <path d="M50 50 C45 30 55 20 60 40 C65 20 75 30 70 50 C75 65 65 75 60 75 C55 75 45 65 50 50 Z" fill="#ff7597"/>
+    </svg>
+    <div class="gift-title">A gift has arrived for you</div>
+    <div class="gift-subtitle">TAP ANYWHERE TO UNWRAP</div>
+  </div>
+
+  <!-- Screen 2: Interactive Bouquet Page -->
+  <div id="bouquet-screen">
+    
+    <div class="header-banner">
+      <h2>Happy Teacher's Day! 🌸</h2>
+      <p>to the one who deserves an endless supply of coffee</p>
+    </div>
+
+    <div class="bouquet-container">
+      <!-- Large Realistic SVG Bouquet -->
+      <svg class="realistic-bouquet" viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="wrapperGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f8a5c2"/>
+            <stop offset="50%" stop-color="#f78fb3"/>
+            <stop offset="100%" stop-color="#e77f9d"/>
+          </linearGradient>
+          <linearGradient id="ribbonGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#f5cd79"/>
+          </linearGradient>
+          <radialGradient id="tulipDark" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff4d79"/>
+            <stop offset="100%" stop-color="#c41c46"/>
+          </radialGradient>
+          <radialGradient id="tulipLight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff85a2"/>
+            <stop offset="100%" stop-color="#e63963"/>
+          </radialGradient>
+          <radialGradient id="tulipSoft" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffb3c6"/>
+            <stop offset="100%" stop-color="#ff5c8a"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Stems & Leaves -->
+        <path d="M120 220 Q110 160 90 100" stroke="#5d9b68" stroke-width="5" stroke-linecap="round"/>
+        <path d="M160 220 Q160 150 160 80" stroke="#4d8b58" stroke-width="6" stroke-linecap="round"/>
+        <path d="M200 220 Q210 160 230 100" stroke="#5d9b68" stroke-width="5" stroke-linecap="round"/>
+        <path d="M140 220 Q130 150 120 90" stroke="#3d7b48" stroke-width="5" stroke-linecap="round"/>
+        <path d="M180 220 Q190 150 200 90" stroke="#3d7b48" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- Eucalyptus / Greenery -->
+        <circle cx="80" cy="120" r="12" fill="#78ab82" opacity="0.8"/>
+        <circle cx="70" cy="105" r="10" fill="#88bb92" opacity="0.8"/>
+        <circle cx="240" cy="120" r="12" fill="#78ab82" opacity="0.8"/>
+        <circle cx="250" cy="105" r="10" fill="#88bb92" opacity="0.8"/>
+
+        <!-- Tulips -->
+        <g transform="translate(130, 50)">
+          <path d="M30 60 C10 30 20 10 30 0 C40 10 50 30 30 60 Z" fill="url(#tulipDark)"/>
+          <path d="M15 50 C-5 25 15 5 25 35 C20 45 15 50 15 50 Z" fill="url(#tulipLight)"/>
+          <path d="M45 50 C65 25 45 5 35 35 C40 45 45 50 45 50 Z" fill="url(#tulipLight)"/>
+        </g>
+
+        <g transform="translate(85, 70) rotate(-15)">
+          <path d="M30 60 C10 30 20 10 30 0 C40 10 50 30 30 60 Z" fill="url(#tulipLight)"/>
+          <path d="M15 50 C-5 25 15 5 25 35 Z" fill="url(#tulipSoft)"/>
+          <path d="M45 50 C65 25 45 5 35 35 Z" fill="url(#tulipSoft)"/>
+        </g>
+
+        <g transform="translate(175, 70) rotate(15)">
+          <path d="M30 60 C10 30 20 10 30 0 C40 10 50 30 30 60 Z" fill="url(#tulipLight)"/>
+          <path d="M15 50 C-5 25 15 5 25 35 Z" fill="url(#tulipSoft)"/>
+          <path d="M45 50 C65 25 45 5 35 35 Z" fill="url(#tulipSoft)"/>
+        </g>
+
+        <g transform="translate(50, 110) rotate(-30)">
+          <path d="M25 50 C8 25 16 8 25 0 C34 8 42 25 25 50 Z" fill="url(#tulipSoft)"/>
+          <path d="M12 42 C-3 20 12 4 20 30 Z" fill="url(#tulipDark)"/>
+        </g>
+
+        <g transform="translate(210, 110) rotate(30)">
+          <path d="M25 50 C8 25 16 8 25 0 C34 8 42 25 25 50 Z" fill="url(#tulipSoft)"/>
+          <path d="M38 42 C53 20 38 4 30 30 Z" fill="url(#tulipDark)"/>
+        </g>
+
+        <g transform="translate(130, 110)">
+          <path d="M30 60 C10 30 20 10 30 0 C40 10 50 30 30 60 Z" fill="url(#tulipSoft)"/>
+          <path d="M15 50 C-5 25 15 5 25 35 Z" fill="url(#tulipLight)"/>
+          <path d="M45 50 C65 25 45 5 35 35 Z" fill="url(#tulipLight)"/>
+        </g>
+
+        <!-- Wrapping & Ribbon -->
+        <path d="M60 160 L160 380 L260 160 C260 160 210 210 160 200 C110 210 60 160 60 160 Z" fill="url(#wrapperGrad)" opacity="0.95"/>
+        <path d="M45 150 Q160 220 275 150 L200 370 L120 370 Z" fill="url(#wrapperGrad)"/>
+        <path d="M120 210 Q160 230 200 210 L175 370 L145 370 Z" fill="#e77f9d"/>
+
+        <path d="M140 230 Q120 210 110 230 Q120 250 145 238 Z" fill="url(#ribbonGrad)"/>
+        <path d="M180 230 Q200 210 210 230 Q200 250 175 238 Z" fill="url(#ribbonGrad)"/>
+        <circle cx="160" cy="235" r="8" fill="#ffffff"/>
+        <path d="M155 240 L140 280 L155 275 Z" fill="url(#ribbonGrad)"/>
+        <path d="M165 240 L180 280 L165 275 Z" fill="url(#ribbonGrad)"/>
+      </svg>
+
+      <!-- Floating Envelope Icon Button -->
+      <div class="letter-icon-btn" onclick="openLetter()" title="Click to read your letter">✉️</div>
+    </div>
+
+    <button class="music-toggle" onclick="toggleAudio()">🎵 Sound On / Off</button>
+  </div>
+
+  <!-- Screen 3: Letter Modal -->
+  <div class="modal-overlay" id="letterModal">
+    <div class="letter-modal">
+      <button class="close-btn" onclick="closeLetter()">✕</button>
+      
+      <div class="letter-header">
+        <h3>A Letter for My Teacher</h3>
+      </div>
+
+      <div class="letter-content">
+        <p><strong>Dearest Teacher,</strong></p>
+        <p>Happy Teacher’s Day!</p>
+        <p>Even though time has passed since I sat in your classroom, I often find myself reflecting on the invaluable lessons, wisdom, and kindness you shared with me.</p>
+        <p>Thank you for your endless patience and for always believing in my potential, even during times when I doubted myself. You didn't just teach me lessons from a textbook; you inspired me to think bigger, work harder, and approach life with confidence.</p>
+        <p>This virtual bouquet is a small token of my deep gratitude for everything you have done for me. I am truly honored to have been your student.</p>
+        <p>Wishing you continuous happiness, good health, and peace today and always!</p>
+        <p style="text-align: right; margin-top: 20px;"><strong>With deepest respect,<br>Jessa</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const unwrapScreen = document.getElementById('unwrap-screen');
+    const bouquetScreen = document.getElementById('bouquet-screen');
+    const letterModal = document.getElementById('letterModal');
+    const bgMusic = document.getElementById('bg-music');
+    let isPlaying = false;
+
+    // Transition from Screen 1 to Screen 2 + Start Audio
+    function unwrapGift() {
+      unwrapScreen.style.display = 'none';
+      bouquetScreen.style.display = 'flex';
+      
+      bgMusic.play().then(() => {
+        isPlaying = true;
+      }).catch(() => {
+        isPlaying = false;
+      });
+
+      startParticles();
+    }
+
+    // Toggle Music
+    function toggleAudio() {
+      if (isPlaying) {
+        bgMusic.pause();
+        isPlaying = false;
+      } else {
+        bgMusic.play();
+        isPlaying = true;
+      }
+    }
+
+    // Modal Control
+    function openLetter() {
+      letterModal.style.display = 'flex';
+    }
+
+    function closeLetter() {
+      letterModal.style.display = 'none';
+    }
+
+    // Floating Particles Effect
+    function startParticles() {
+      setInterval(() => {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.innerText = ['🌸', '✨', '🌷', '💖', '🍃'][Math.floor(Math.random() * 5)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (Math.random() * 12 + 12) + 'px';
+        p.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        document.body.appendChild(p);
+
+        setTimeout(() => {
+          p.remove();
+        }, 4500);
+      }, 400);
+    }
+  </script>
+</body>
+</html>
