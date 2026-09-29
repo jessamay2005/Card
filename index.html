@@ -66,7 +66,11 @@
       justify-content: center;
       height: 100vh;
       width: 100%;
-      z-index: 6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fbe3eb;
+      z-index: 20;
       animation: pulse 2s infinite ease-in-out;
     }
 
@@ -191,7 +195,7 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(4px);
-      z-index: 10;
+      z-index: 30;
       justify-content: center;
       align-items: center;
       padding: 20px;
@@ -283,7 +287,7 @@
 </head>
 <body>
 
-  <!-- Big Classroom Essential Stickers Outside Panel (Apple changed to Push Pin 📌) -->
+  <!-- Big Classroom Essential Stickers Outside Panel -->
   <div class="classroom-sticker sticker-1">📚</div>
   <div class="classroom-sticker sticker-2">📌</div>
   <div class="classroom-sticker sticker-3">✏️</div>
