@@ -100,7 +100,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 40px 20px 30px 20px;
+      padding: 30px 20px 20px 20px;
       overflow: hidden;
       box-shadow: 0 0 25px rgba(0,0,0,0.08);
       z-index: 6;
@@ -108,12 +108,14 @@
 
     .header-banner {
       text-align: center;
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.85);
       padding: 10px 22px;
       border-radius: 25px;
       backdrop-filter: blur(8px);
       box-shadow: 0 4px 15px rgba(230, 92, 132, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.9);
+      animation: dropDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 3;
     }
 
     .header-banner h2 {
@@ -135,34 +137,55 @@
       justify-content: center;
       align-items: center;
       flex-grow: 1;
-      margin: 10px 0;
+      margin: 5px 0;
     }
 
+    /* Magical Sparkle Burst Effect Behind Bouquet */
+    .sparkle-burst {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,182,193,0.45) 50%, rgba(255,255,255,0) 70%);
+      animation: sparkleExpand 1.2s ease-out forwards;
+      pointer-events: none;
+      z-index: 1;
+      transform: scale(0);
+    }
+
+    /* Increased Bouquet Size */
     .realistic-bouquet {
-      width: 320px;
-      height: 380px;
+      width: 370px;
+      height: 430px;
       filter: drop-shadow(0 12px 20px rgba(214, 82, 122, 0.25));
-      animation: gentleSway 4s ease-in-out infinite;
+      animation: popUpFlower 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards, gentleSway 4s ease-in-out 1.4s infinite;
+      transform: scale(0);
+      z-index: 2;
     }
 
-    /* Floating Envelope Icon Button */
+    /* Increased Letter Icon Button Size & Positioned Clearly */
     .letter-icon-btn {
       position: absolute;
-      right: 25px;
-      bottom: 25px;
+      right: 20px;
+      bottom: 20px;
       background: #ffffff;
-      border: 2px solid #f2a6be;
-      width: 56px;
-      height: 56px;
+      border: 3px solid #f2a6be;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
+      font-size: 34px;
       cursor: pointer;
-      box-shadow: 0 6px 16px rgba(230, 92, 132, 0.3);
+      box-shadow: 0 8px 20px rgba(230, 92, 132, 0.35);
       animation: bounce 2s infinite;
-      z-index: 3;
+      z-index: 5;
+      transition: transform 0.2s;
+    }
+
+    .letter-icon-btn:hover {
+      transform: scale(1.1);
     }
 
     /* Floating Particles Container */
@@ -170,19 +193,7 @@
       position: absolute;
       pointer-events: none;
       animation: floatUp linear infinite;
-    }
-
-    .music-toggle {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid #f2a6be;
-      padding: 10px 22px;
-      border-radius: 20px;
-      color: #e65c84;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.85rem;
-      z-index: 2;
-      transition: background 0.3s;
+      z-index: 4;
     }
 
     /* Screen 3: Letter Modal Pop-up */
@@ -249,10 +260,27 @@
       margin-bottom: 14px;
     }
 
-    /* Animations */
+    /* Keyframe Animations */
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.02); }
+    }
+
+    @keyframes popUpFlower {
+      0% { transform: scale(0) rotate(-20deg) translateY(40px); opacity: 0; }
+      60% { transform: scale(1.12) rotate(4deg) translateY(-10px); opacity: 1; }
+      80% { transform: scale(0.95) rotate(-2deg) translateY(5px); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg) translateY(0); opacity: 1; }
+    }
+
+    @keyframes sparkleExpand {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    @keyframes dropDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes gentleSway {
@@ -262,7 +290,7 @@
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-10px); }
     }
 
     @keyframes popIn {
@@ -271,8 +299,8 @@
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.7); opacity: 0.9; }
-      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+      0% { transform: translateY(100vh) scale(0.6) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-15vh) scale(1.2) rotate(360deg); opacity: 0; }
     }
 
     /* Responsive adjustments for mobile side stickers */
@@ -295,11 +323,6 @@
   <div class="classroom-sticker sticker-5">📐</div>
   <div class="classroom-sticker sticker-6">🌟</div>
 
-  <!-- Royalty-free soft acoustic background music -->
-  <audio id="bg-music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-piano-112180.mp3" type="audio/mpeg">
-  </audio>
-
   <!-- Screen 1: Unwrapping Page -->
   <div id="unwrap-screen" onclick="unwrapGift()">
     <svg width="120" height="140" viewBox="0 0 120 140" fill="none">
@@ -319,8 +342,10 @@
       <p>To the one who deserves an endless supply of coffee</p>
     </div>
 
-    <div class="bouquet-container">
-      <!-- Large Realistic SVG Bouquet -->
+    <div class="bouquet-container" id="bouquetContainer">
+      <!-- Sparkle Burst Element generated on open -->
+      
+      <!-- Large Realistic SVG Bouquet with Spring/Bloom Effects -->
       <svg class="realistic-bouquet" viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="wrapperGrad" x1="0" y1="0" x2="1" y2="1">
@@ -406,11 +431,10 @@
         <path d="M165 240 L180 280 L165 275 Z" fill="url(#ribbonGrad)"/>
       </svg>
 
-      <!-- Floating Envelope Icon Button -->
+      <!-- Larger Floating Envelope Icon Button -->
       <div class="letter-icon-btn" onclick="openLetter()" title="Click to read your letter">✉️</div>
     </div>
 
-    <button class="music-toggle" onclick="toggleAudio()">🎵 Sound On / Off</button>
   </div>
 
   <!-- Screen 3: Letter Modal -->
@@ -438,35 +462,21 @@
     const unwrapScreen = document.getElementById('unwrap-screen');
     const bouquetScreen = document.getElementById('bouquet-screen');
     const letterModal = document.getElementById('letterModal');
-    const bgMusic = document.getElementById('bg-music');
-    let isPlaying = false;
+    const bouquetContainer = document.getElementById('bouquetContainer');
 
-    // Transition from Screen 1 to Screen 2 + Start Audio
     function unwrapGift() {
       unwrapScreen.style.display = 'none';
       bouquetScreen.style.display = 'flex';
       
-      bgMusic.play().then(() => {
-        isPlaying = true;
-      }).catch(() => {
-        isPlaying = false;
-      });
+      // Trigger sparkle effect on open
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle-burst');
+      bouquetContainer.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1200);
 
       startParticles();
     }
 
-    // Toggle Music
-    function toggleAudio() {
-      if (isPlaying) {
-        bgMusic.pause();
-        isPlaying = false;
-      } else {
-        bgMusic.play();
-        isPlaying = true;
-      }
-    }
-
-    // Modal Control
     function openLetter() {
       letterModal.style.display = 'flex';
     }
@@ -475,21 +485,20 @@
       letterModal.style.display = 'none';
     }
 
-    // Floating Particles Effect
     function startParticles() {
       setInterval(() => {
         const p = document.createElement('div');
         p.classList.add('particle');
-        p.innerText = ['🌸', '✨', '🌷', '💖', '🍃'][Math.floor(Math.random() * 5)];
+        p.innerText = ['🌸', '✨', '🌷', '💖', '🍃', '💮'][Math.floor(Math.random() * 6)];
         p.style.left = Math.random() * 100 + 'vw';
-        p.style.fontSize = (Math.random() * 12 + 12) + 'px';
-        p.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        p.style.fontSize = (Math.random() * 14 + 14) + 'px';
+        p.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
         document.body.appendChild(p);
 
         setTimeout(() => {
           p.remove();
-        }, 4500);
-      }, 400);
+        }, 5000);
+      }, 350);
     }
   </script>
 </body>
